@@ -69,5 +69,33 @@ Open your browser and navigate to http://localhost:5000 OR http://127.0.0.1:5000
 
 # 🛠️ Usage
 
+1. **Enter Domain:** Input the .onion domain you want to explore.
 
-  
+   **Note:** Do not include a trailing slash (/) at the end of the domain. For example:<br>
+
+   ❌ abcxyz.onion/<br>
+   ✅ abcxyz.onion
+
+2. **Set Parameters:** Adjust the "rate limit" and "pagination" as needed.
+
+    **Recommended:**<br>
+       Rate Limit: 2 seconds ⏱️<br>
+       Pagination: 1 to 3 pages 📄
+
+3. **Fetch Endpoints:** Click "Fetch Endpoints" to start the process. Results will be saved in the ***fetched_endpoints*** directory. 📂
+
+## 🤝 Contributions and Issues
+
+- 💡 **Contribute:** Got a great idea or improvement? We’d love your help! Please make sure your contributions are in line with ethical practices and enhance the security and functionality of the tool. 🌟
+
+- 📝 **Report Issues:** If you encounter issues or bugs, please report them on our [GitHub repository](https://github.com/iqlipx/Onion_Endpoints_Fetcher/issues). Your feedback helps us improve and keep the project in top shape. 🐞
+
+
+## 📜 License
+
+This project is licensed under the [MIT License]. For more details, please see the [LICENSE](LICENSE) file in the repository.
+
+
+## ⚠️ Disclaimer
+
+This tool is provided for educational purposes only. The developers are not responsible for any misuse or illegal activities conducted with this tool. Use it responsibly and ethically 🙏
