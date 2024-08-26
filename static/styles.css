@@ -1,0 +1,182 @@
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif; /* Professional and modern font */
+    background-color: #2d2f33; /* Dark background to reduce eye strain */
+    color: #e0e0e0; /* Light grey text for readability */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 800px;
+    width: 100%;
+    background-color: #393d42; /* Darker grey for the container background */
+    border: 1px solid #474a4f; /* Subtle border to define container edges */
+    border-radius: 10px;
+    padding: 30px;
+    margin-top: 60px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Slightly more pronounced shadow for depth */
+    position: relative;
+}
+
+h1 {
+    color: #ffffff; /* White heading color for contrast */
+    font-size: 2rem; /* Slightly larger font size for headings */
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #c2c2c2; /* Light grey for subheadings */
+    font-size: 1.5rem;
+    margin-top: 30px;
+    border-bottom: 2px solid #474a4f; /* Subtle underline for separation */
+    padding-bottom: 5px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Even spacing between elements */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+label {
+    color: #b0b0b0; /* Light grey for labels */
+    font-weight: bold;
+}
+
+input, button {
+    padding: 12px;
+    border: 1px solid #555; /* Medium grey border for inputs */
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+input {
+    background-color: #4a4e55; /* Dark grey background for inputs */
+    color: #ffffff; /* White text for inputs */
+}
+
+input:focus {
+    border-color: #1e90ff; /* Blue border on focus for input */
+    outline: none;
+}
+
+button {
+    background-color: #1e90ff; /* Professional blue button */
+    color: #ffffff; /* White text for buttons */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #1566b3; /* Darker blue on hover */
+}
+
+.results-container {
+    margin-top: 20px;
+    max-height: 400px;
+    overflow-y: auto;
+    border-top: 1px solid #474a4f; /* Top border to separate content */
+    padding-top: 20px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    padding: 10px;
+    border-bottom: 1px solid #474a4f; /* Light border for list items */
+}
+
+li:hover {
+    background-color: #3c4046; /* Slightly darker background on hover */
+}
+
+.entry-node, .exit-node {
+    position: fixed;
+    padding: 8px 12px; /* Smaller padding for a more compact look */
+    background-color: #4a4e55; /* Dark grey for node background */
+    border: 1px solid #555; /* Medium grey border to match theme */
+    border-radius: 8px;
+    color: #ffffff; /* White text for better contrast */
+    font-weight: bold;
+    font-size: 0.875rem; /* Smaller text for nodes */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Subtle shadow for nodes */
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.entry-node {
+    top: 20px;
+    left: 20px;
+}
+
+.exit-node {
+    top: 20px;
+    right: 20px;
+}
+
+.entry-node:hover, .exit-node:hover {
+    background-color: #5b6169; /* Slight background change on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Enhanced shadow on hover */
+}
+
+.spinner {
+    position: fixed;
+    top: 62%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.spinner div {
+    width: 12px;
+    height: 12px;
+    margin: 0 4px;
+    background-color: #1e90ff; /* Blue color for the dots */
+    border-radius: 50%;
+    display: inline-block;
+    animation: bounce 1.4s infinite ease-in-out;
+}
+
+.spinner div:nth-child(2) {
+    animation-delay: -0.32s;
+}
+
+.spinner div:nth-child(3) {
+    animation-delay: -0.16s;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 0.5em;
+    display: block;
+}

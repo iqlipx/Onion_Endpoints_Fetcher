@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOR Endpoint Fetcher</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="entry-node" id="entry-node">
+        <h3>Entry Node</h3>
+        <p>Fingerprint: {{ entry_node.fingerprint }}</p>
+        <p>Nickname: {{ entry_node.nickname }}</p>
+        <p>Address: {{ entry_node.address }}</p>
+    </div>
+    <div class="exit-node" id="exit-node">
+        <h3>Exit Node</h3>
+        <p>Fingerprint: {{ exit_node.fingerprint }}</p>
+        <p>Nickname: {{ exit_node.nickname }}</p>
+        <p>Address: {{ exit_node.address }}</p>
+    </div>
+    <div class="container">
+        <h1>Onion Endpoints Fetcher</h1>
+        <form id="fetch-form" action="/fetch_endpoints" method="POST">
+            <div class="form-group">
+                <label for="domain">Onion Domain:</label>
+                <input type="text" id="domain" name="domain" placeholder="Enter .onion domain">
+                <span id="domain-error" class="error-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="rate_limit">Rate Limit (seconds):</label>
+                <input type="number" id="rate_limit" name="rate_limit" placeholder="Rate Limit" min="1" max="10">
+                <span id="rate-limit-error" class="error-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="pagination_limit">Pagination Limit:</label>
+                <input type="number" id="pagination_limit" name="pagination_limit" placeholder="Pagination Limit" min="1" max="10">
+                <span id="pagination-limit-error" class="error-message"></span>
+            </div>
+            <button type="submit">Fetch Endpoints</button>
+        </form>
+
+        <!-- Spinner element -->
+        <div id="spinner" class="spinner hidden">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+
+        <div id="results-container" class="results-container">
+            <h2>Fetched Endpoints:</h2>
+            <ul id="results">
+                <!-- Fetched endpoints will be appended here -->
+            </ul>
+        </div>
+    </div>
+ <script>
+document.getElementById('fetch-form').onsubmit = async function(event) {
+    event.preventDefault();
+
+    // Clear previous error messages
+    document.getElementById('domain-error').textContent = '';
+    document.getElementById('rate-limit-error').textContent = '';
+    document.getElementById('pagination-limit-error').textContent = '';
+
+    const formData = new FormData(this);
+    const rateLimit = formData.get('rate_limit');
+    const paginationLimit = formData.get('pagination_limit');
+    const domain = formData.get('domain');
+    const spinner = document.getElementById('spinner');
+    const resultsContainer = document.getElementById('results');
+
+    // Clear previous results before making a new request
+    resultsContainer.innerHTML = '';  // Clear previous results
+
+    let valid = true;
+
+    // Custom validation
+    if (!domain) {
+        document.getElementById('domain-error').textContent = 'Please enter the Onion Domain.';
+        valid = false;
+    }
+
+    if (!rateLimit) {
+        document.getElementById('rate-limit-error').textContent = 'Please enter a rate limit.';
+        valid = false;
+    }
+
+    if (!paginationLimit) {
+        document.getElementById('pagination-limit-error').textContent = 'Please enter a pagination limit.';
+        valid = false;
+    } else if (parseInt(paginationLimit, 10) > 10) {
+        document.getElementById('pagination-limit-error').textContent = 'Pagination limit cannot be greater than 10.';
+        valid = false;
+    }
+
+    if (!valid) {
+        return; // Prevent form submission if there are validation errors
+    }
+
+    spinner.classList.remove('hidden');  // Show spinner
+
+    try {
+        const response = await fetch('/fetch_endpoints', {
+            method: 'POST',
+            body: formData
+        });
+
+        spinner.classList.add('hidden');  // Hide spinner
+
+        if (response.ok) {
+            const data = await response.json();
+
+            if (data.endpoints && data.endpoints.length > 0) {
+                data.endpoints.forEach(url => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = url;
+                    resultsContainer.appendChild(listItem);
+                });
+            } else {
+                resultsContainer.innerHTML = '<li>No endpoints found.</li>';  // Show message if no endpoints are found
+            }
+        } else {
+            document.getElementById('pagination-limit-error').textContent = 'Failed to fetch endpoints.';
+        }
+    } catch (error) {
+        console.error('Error fetching endpoints:', error);
+        document.getElementById('pagination-limit-error').textContent = 'An error occurred while fetching endpoints.';
+    }
+};
+
+</script>
+</body>
+</html>

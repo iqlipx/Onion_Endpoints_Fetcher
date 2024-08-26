@@ -1,0 +1,24 @@
+## Essential Tor Configuration Template for Tool Usage
+
+# DataDirectory is where Tor stores its state and keys.
+DataDirectory /var/lib/tor
+
+# ControlPort allows control commands to be sent to Tor.
+ControlPort 9051
+
+# Enable cookie authentication for the ControlPort.
+CookieAuthentication 1
+CookieAuthFile /run/tor/control.authcookie
+CookieAuthFileGroupReadable 1
+
+# Log level to 'notice' and where to send logs.
+Log notice file /var/log/tor/notices.log
+
+# Run Tor as a background daemon.
+RunAsDaemon 1
+
+# Default SOCKS port for local connections.
+SocksPort 9050
+
+# PID file for managing the Tor process.
+PidFile /var/run/tor/tor.pid
